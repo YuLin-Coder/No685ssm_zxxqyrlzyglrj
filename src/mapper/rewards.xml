@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.RewardsDAO">
+	<resultMap type="rewards" id="rewardsMap">
+		<id property="rewardsid" column="rewardsid" />
+		<result property="deptid" column="deptid" />
+		<result property="usersid" column="usersid" />
+		<result property="cate" column="cate" />
+		<result property="reason" column="reason" />
+		<result property="resultx" column="resultx" />
+		<result property="salary" column="salary" />
+		<result property="addtime" column="addtime" />
+		<result property="manager" column="manager" />
+		<result property="status" column="status" />
+		<result property="memo" column="memo" />
+		<result property="deptname" column="deptname" />
+		<result property="realname" column="realname" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertRewards" parameterType="rewards">  
+		insert into rewards(rewardsid  , deptid  , usersid  , cate  , reason  , resultx  , salary  , addtime  , manager  , status  , memo ) values(#{rewardsid}  , #{deptid}   , #{usersid}   , #{cate}   , #{reason}   , #{resultx}   , #{salary}   , #{addtime}   , #{manager}   , #{status}   , #{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+		<update id="updateRewards" parameterType="rewards">
+update rewards set  deptid=#{deptid}  , usersid=#{usersid}  , cate=#{cate}  , reason=#{reason}  , resultx=#{resultx}  , salary=#{salary}  , addtime=#{addtime}  , manager=#{manager}  , status=#{status}  , memo=#{memo}  where rewardsid=#{rewardsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteRewards" parameterType="String">
+		delete from rewards where rewardsid = #{rewardsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置  -->
+	<select id="getAllRewards" resultMap="rewardsMap">
+select a.* , b.deptname , c.realname  from rewards a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid  order by rewardsid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置  -->
+	<select id="getRewardsById" parameterType="String" resultMap="rewardsMap">
+select a.* , b.deptname , c.realname  from rewards a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid and rewardsid=#{rewardsid} order by rewardsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置  -->
+	<select id="getRewardsByCond" parameterType="rewards" resultMap="rewardsMap">
+select a.* , b.deptname , c.realname  from rewards a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid 
+		<if test="deptid != null and '' != deptid">
+			and a.deptid = #{deptid}  
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid}  
+		</if>
+		<if test="cate != null and '' != cate">
+			and a.cate = #{cate}  
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason = #{reason}  
+		</if>
+		<if test="resultx != null and '' != resultx">
+			and a.resultx = #{resultx}  
+		</if>
+		<if test="salary != null and '' != salary">
+			and a.salary = #{salary}  
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}  
+		</if>
+		<if test="manager != null and '' != manager">
+			and a.manager = #{manager}  
+		</if>
+		<if test="status != null and '' != status">
+			and a.status = #{status}  
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}  
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置  -->
+	<select id="getRewardsByLike" parameterType="rewards" resultMap="rewardsMap">
+select a.* , b.deptname , c.realname  from rewards a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid 
+		<if test="deptid != null and '' != deptid">
+			and b.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and c.realname like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="cate != null and '' != cate">
+			and a.cate like CONCAT('%', CONCAT(#{cate}, '%'))
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+		</if>
+		<if test="resultx != null and '' != resultx">
+			and a.resultx like CONCAT('%', CONCAT(#{resultx}, '%'))
+		</if>
+		<if test="salary != null and '' != salary">
+			and a.salary like CONCAT('%', CONCAT(#{salary}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="manager != null and '' != manager">
+			and a.manager like CONCAT('%', CONCAT(#{manager}, '%'))
+		</if>
+		<if test="status != null and '' != status">
+			and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

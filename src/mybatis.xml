@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="admin" type="com.entity.Admin" />
+		<typeAlias alias="dept" type="com.entity.Dept" />
+		<typeAlias alias="duty" type="com.entity.Duty" />
+		<typeAlias alias="users" type="com.entity.Users" />
+		<typeAlias alias="cate" type="com.entity.Cate" />
+		<typeAlias alias="attend" type="com.entity.Attend" />
+		<typeAlias alias="rewards" type="com.entity.Rewards" />
+		<typeAlias alias="training" type="com.entity.Training" />
+		<typeAlias alias="salary" type="com.entity.Salary" />
+		<typeAlias alias="banner" type="com.entity.Banner" />
+		<typeAlias alias="article" type="com.entity.Article" />
+		<typeAlias alias="jobs" type="com.entity.Jobs" />
+		<typeAlias alias="applys" type="com.entity.Applys" />
+		<typeAlias alias="bbs" type="com.entity.Bbs" />
+		<typeAlias alias="rebbs" type="com.entity.Rebbs" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/admin.xml" />
+		<mapper resource="mapper/dept.xml" />
+		<mapper resource="mapper/duty.xml" />
+		<mapper resource="mapper/users.xml" />
+		<mapper resource="mapper/cate.xml" />
+		<mapper resource="mapper/attend.xml" />
+		<mapper resource="mapper/rewards.xml" />
+		<mapper resource="mapper/training.xml" />
+		<mapper resource="mapper/salary.xml" />
+		<mapper resource="mapper/banner.xml" />
+		<mapper resource="mapper/article.xml" />
+		<mapper resource="mapper/jobs.xml" />
+		<mapper resource="mapper/applys.xml" />
+		<mapper resource="mapper/bbs.xml" />
+		<mapper resource="mapper/rebbs.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

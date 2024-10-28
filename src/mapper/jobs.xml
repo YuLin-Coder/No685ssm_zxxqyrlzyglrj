@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.JobsDAO">
+	<resultMap type="jobs" id="jobsMap">
+		<id property="jobsid" column="jobsid" />
+		<result property="title" column="title" />
+		<result property="deptid" column="deptid" />
+		<result property="dutyid" column="dutyid" />
+		<result property="num" column="num" />
+		<result property="asignnum" column="asignnum" />
+		<result property="confirmnum" column="confirmnum" />
+		<result property="contents" column="contents" />
+		<result property="addtime" column="addtime" />
+		<result property="hits" column="hits" />
+		<result property="status" column="status" />
+		<result property="memo" column="memo" />
+		<result property="deptname" column="deptname" />
+		<result property="dutyname" column="dutyname" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertJobs" parameterType="jobs">  
+		insert into jobs(jobsid  , title  , deptid  , dutyid  , num  , asignnum  , confirmnum  , contents  , addtime  , hits  , status  , memo ) values(#{jobsid}  , #{title}   , #{deptid}   , #{dutyid}   , #{num}   , #{asignnum}   , #{confirmnum}   , #{contents}   , #{addtime}   , #{hits}   , #{status}   , #{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+		<update id="updateJobs" parameterType="jobs">
+update jobs set  title=#{title}  , deptid=#{deptid}  , dutyid=#{dutyid}  , num=#{num}  , asignnum=#{asignnum}  , confirmnum=#{confirmnum}  , contents=#{contents}  , addtime=#{addtime}  , hits=#{hits}  , status=#{status}  , memo=#{memo}  where jobsid=#{jobsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteJobs" parameterType="String">
+		delete from jobs where jobsid = #{jobsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置  -->
+	<select id="getAllJobs" resultMap="jobsMap">
+select a.* , b.deptname , c.dutyname  from jobs a , dept b , duty c  where 1=1 and a.deptid = b.deptid and a.dutyid = c.dutyid  order by jobsid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置  -->
+	<select id="getJobsById" parameterType="String" resultMap="jobsMap">
+select a.* , b.deptname , c.dutyname  from jobs a , dept b , duty c  where 1=1 and a.deptid = b.deptid and a.dutyid = c.dutyid and jobsid=#{jobsid} order by jobsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置  -->
+	<select id="getJobsByCond" parameterType="jobs" resultMap="jobsMap">
+select a.* , b.deptname , c.dutyname  from jobs a , dept b , duty c  where 1=1 and a.deptid = b.deptid and a.dutyid = c.dutyid 
+		<if test="title != null and '' != title">
+			and a.title = #{title}  
+		</if>
+		<if test="deptid != null and '' != deptid">
+			and a.deptid = #{deptid}  
+		</if>
+		<if test="dutyid != null and '' != dutyid">
+			and a.dutyid = #{dutyid}  
+		</if>
+		<if test="num != null and '' != num">
+			and a.num = #{num}  
+		</if>
+		<if test="asignnum != null and '' != asignnum">
+			and a.asignnum = #{asignnum}  
+		</if>
+		<if test="confirmnum != null and '' != confirmnum">
+			and a.confirmnum = #{confirmnum}  
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}  
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}  
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits = #{hits}  
+		</if>
+		<if test="status != null and '' != status">
+			and a.status = #{status}  
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}  
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置  -->
+	<select id="getJobsByLike" parameterType="jobs" resultMap="jobsMap">
+select a.* , b.deptname , c.dutyname  from jobs a , dept b , duty c  where 1=1 and a.deptid = b.deptid and a.dutyid = c.dutyid 
+		<if test="title != null and '' != title">
+			and a.title like CONCAT('%', CONCAT(#{title}, '%'))
+		</if>
+		<if test="deptid != null and '' != deptid">
+			and b.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+		</if>
+		<if test="dutyid != null and '' != dutyid">
+			and c.dutyname like CONCAT('%', CONCAT(#{dutyid}, '%'))
+		</if>
+		<if test="num != null and '' != num">
+			and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+		</if>
+		<if test="asignnum != null and '' != asignnum">
+			and a.asignnum like CONCAT('%', CONCAT(#{asignnum}, '%'))
+		</if>
+		<if test="confirmnum != null and '' != confirmnum">
+			and a.confirmnum like CONCAT('%', CONCAT(#{confirmnum}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits like CONCAT('%', CONCAT(#{hits}, '%'))
+		</if>
+		<if test="status != null and '' != status">
+			and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

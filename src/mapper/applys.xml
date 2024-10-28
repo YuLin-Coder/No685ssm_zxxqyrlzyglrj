@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.ApplysDAO">
+	<resultMap type="applys" id="applysMap">
+		<id property="applysid" column="applysid" />
+		<result property="ano" column="ano" />
+		<result property="jobsid" column="jobsid" />
+		<result property="filurl" column="filurl" />
+		<result property="addtime" column="addtime" />
+		<result property="status" column="status" />
+		<result property="title" column="title" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertApplys" parameterType="applys">  
+		insert into applys(applysid  , ano  , jobsid  , filurl  , addtime  , status ) values(#{applysid}  , #{ano}   , #{jobsid}   , #{filurl}   , #{addtime}   , #{status} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+		<update id="updateApplys" parameterType="applys">
+update applys set  ano=#{ano}  , jobsid=#{jobsid}  , filurl=#{filurl}  , addtime=#{addtime}  , status=#{status}  where applysid=#{applysid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteApplys" parameterType="String">
+		delete from applys where applysid = #{applysid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置  -->
+	<select id="getAllApplys" resultMap="applysMap">
+select a.* , b.title  from applys a , jobs b  where 1=1 and a.jobsid = b.jobsid  order by applysid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置  -->
+	<select id="getApplysById" parameterType="String" resultMap="applysMap">
+select a.* , b.title  from applys a , jobs b  where 1=1 and a.jobsid = b.jobsid and applysid=#{applysid} order by applysid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置  -->
+	<select id="getApplysByCond" parameterType="applys" resultMap="applysMap">
+select a.* , b.title  from applys a , jobs b  where 1=1 and a.jobsid = b.jobsid 
+		<if test="ano != null and '' != ano">
+			and a.ano = #{ano}  
+		</if>
+		<if test="jobsid != null and '' != jobsid">
+			and a.jobsid = #{jobsid}  
+		</if>
+		<if test="filurl != null and '' != filurl">
+			and a.filurl = #{filurl}  
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}  
+		</if>
+		<if test="status != null and '' != status">
+			and a.status = #{status}  
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置  -->
+	<select id="getApplysByLike" parameterType="applys" resultMap="applysMap">
+select a.* , b.title  from applys a , jobs b  where 1=1 and a.jobsid = b.jobsid 
+		<if test="ano != null and '' != ano">
+			and a.ano like CONCAT('%', CONCAT(#{ano}, '%'))
+		</if>
+		<if test="jobsid != null and '' != jobsid">
+			and b.title like CONCAT('%', CONCAT(#{jobsid}, '%'))
+		</if>
+		<if test="filurl != null and '' != filurl">
+			and a.filurl like CONCAT('%', CONCAT(#{filurl}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="status != null and '' != status">
+			and a.status like CONCAT('%', CONCAT(#{status}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->

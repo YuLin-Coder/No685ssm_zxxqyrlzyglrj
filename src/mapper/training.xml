@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.TrainingDAO">
+	<resultMap type="training" id="trainingMap">
+		<id property="trainingid" column="trainingid" />
+		<result property="deptid" column="deptid" />
+		<result property="usersid" column="usersid" />
+		<result property="cate" column="cate" />
+		<result property="reason" column="reason" />
+		<result property="thestart" column="thestart" />
+		<result property="theend" column="theend" />
+		<result property="memo" column="memo" />
+		<result property="deptname" column="deptname" />
+		<result property="realname" column="realname" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertTraining" parameterType="training">  
+		insert into training(trainingid  , deptid  , usersid  , cate  , reason  , thestart  , theend  , memo ) values(#{trainingid}  , #{deptid}   , #{usersid}   , #{cate}   , #{reason}   , #{thestart}   , #{theend}   , #{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+		<update id="updateTraining" parameterType="training">
+update training set  deptid=#{deptid}  , usersid=#{usersid}  , cate=#{cate}  , reason=#{reason}  , thestart=#{thestart}  , theend=#{theend}  , memo=#{memo}  where trainingid=#{trainingid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteTraining" parameterType="String">
+		delete from training where trainingid = #{trainingid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置  -->
+	<select id="getAllTraining" resultMap="trainingMap">
+select a.* , b.deptname , c.realname  from training a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid  order by trainingid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置  -->
+	<select id="getTrainingById" parameterType="String" resultMap="trainingMap">
+select a.* , b.deptname , c.realname  from training a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid and trainingid=#{trainingid} order by trainingid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置  -->
+	<select id="getTrainingByCond" parameterType="training" resultMap="trainingMap">
+select a.* , b.deptname , c.realname  from training a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid 
+		<if test="deptid != null and '' != deptid">
+			and a.deptid = #{deptid}  
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid}  
+		</if>
+		<if test="cate != null and '' != cate">
+			and a.cate = #{cate}  
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason = #{reason}  
+		</if>
+		<if test="thestart != null and '' != thestart">
+			and a.thestart = #{thestart}  
+		</if>
+		<if test="theend != null and '' != theend">
+			and a.theend = #{theend}  
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}  
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置  -->
+	<select id="getTrainingByLike" parameterType="training" resultMap="trainingMap">
+select a.* , b.deptname , c.realname  from training a , dept b , users c  where 1=1 and a.deptid = b.deptid and a.usersid = c.usersid 
+		<if test="deptid != null and '' != deptid">
+			and b.deptname like CONCAT('%', CONCAT(#{deptid}, '%'))
+		</if>
+		<if test="usersid != null and '' != usersid">
+			and c.realname like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="cate != null and '' != cate">
+			and a.cate like CONCAT('%', CONCAT(#{cate}, '%'))
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+		</if>
+		<if test="thestart != null and '' != thestart">
+			and a.thestart like CONCAT('%', CONCAT(#{thestart}, '%'))
+		</if>
+		<if test="theend != null and '' != theend">
+			and a.theend like CONCAT('%', CONCAT(#{theend}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->
